@@ -1,8 +1,6 @@
 const bcrypt = require("bcryptjs");
 const gravatar = require("gravatar");
-// const { nanoid } = require("nanoid");
-// const { nanoid } = require("nanoid");
-// const { nanoid } = require("nanoid");
+const { createError } = require("../../helpers");
 const { v4: uuidv4 } = require("uuid");
 
 const { User } = require("../../models");
@@ -12,24 +10,21 @@ const signup = async (req, res) => {
   const { email, password, subscription } = req.body;
   const user = await User.findOne({ email });
   if (user) {
-    const error = new Error("Email in use");
-    error.status = 409;
-    throw error;
+    throw createError(409, "Email in use");
   }
   // const verificationToken = nanoid();
-  const verificationToken = uuidv4();
-  const avatarURL = gravatar.url(email, verificationToken);
+  // const verificationToken = uuidv4();
+  // const avatarURL = gravatar.url(email, verificationToken);
   const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+  // const compareResult = bcrypt.compareSync(password, hashPassword);
 
   if (!hashPassword) {
-    const error = new Error("Email or password is wrong");
-    error.status = 401;
-    throw error;
+    throw createError(401, "Email or password is wrong");
   }
-  const result = await User.create({
+  await User.create({
     email,
     password: hashPassword,
-    avatarURL,
+    // avatarURL,
   });
 
   // const mail = {
@@ -44,9 +39,9 @@ const signup = async (req, res) => {
     ResponseBody: {
       user: {
         email: email,
-        verificationToken,
+        // verificationToken,
         subscription: "starter",
-        avatarURL,
+        // avatarURL,
       },
     },
   });

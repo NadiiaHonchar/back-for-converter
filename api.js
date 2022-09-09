@@ -32,7 +32,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 // const contactsRouter = require("./routes/api/contacts");
-const userRouter = require("./routers/api/users");
+const userRouter = require("./routers/api/auth");
 const app = express();
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
@@ -43,7 +43,7 @@ app.use(express.static("public"));
 
 // const DB_HOST = "mongodb+srv://Nadiia:7Q!c_Ga7xwUXX_b@cluster0.mrrli.mongodb.net/db-contacts?retryWrites=true&w=majority"
 
-app.use("/api/users", userRouter);
+app.use("/api/auth", userRouter);
 // app.use("/api/contacts", contactsRouter);
 
 app.use((req, res) => {
