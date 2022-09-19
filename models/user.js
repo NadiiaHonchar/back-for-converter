@@ -26,18 +26,6 @@ const userSchema = Schema(
       type: String,
       default: null,
     },
-    // avatarURL: {
-    //   type: String,
-    //   required: true,
-    // },
-    verify: {
-      type: Boolean,
-      default: false,
-    },
-    // verificationToken: {
-    //   type: String,
-    //   required: [true, "Verify token is required"],
-    // },
   },
   { versionKey: false, timestamps: true }
 );
@@ -48,7 +36,6 @@ const joiSchema = Joi.object({
   password: Joi.string().min(6).required(),
   email: Joi.string().pattern(regEx).required(),
   subscription: Joi.string().required(),
-  token: Joi.string().required(),
 });
 
 const joiSignUpSchema = Joi.object({
@@ -56,10 +43,10 @@ const joiSignUpSchema = Joi.object({
   email: Joi.string().pattern(regEx).required(),
 });
 
-const schemas={
+const schemas = {
   joiSchema,
   joiSignUpSchema,
-}
+};
 
 module.exports = {
   User,
