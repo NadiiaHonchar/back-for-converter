@@ -17,11 +17,6 @@ const userSchema = Schema(
       unique: true,
       mutch: regEx,
     },
-    subscription: {
-      type: String,
-      enum: ["starter", "pro", "business"],
-      default: "starter",
-    },
     token: {
       type: String,
       default: null,
@@ -32,19 +27,12 @@ const userSchema = Schema(
 
 const User = model("user", userSchema);
 
-const joiSchema = Joi.object({
-  password: Joi.string().min(6).required(),
-  email: Joi.string().pattern(regEx).required(),
-  subscription: Joi.string().required(),
-});
-
 const joiSignUpSchema = Joi.object({
   password: Joi.string().min(6).required(),
   email: Joi.string().pattern(regEx).required(),
 });
 
 const schemas = {
-  joiSchema,
   joiSignUpSchema,
 };
 

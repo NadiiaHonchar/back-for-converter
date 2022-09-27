@@ -1,11 +1,10 @@
 const current = async (req, res) => {
-  const { email, subscription } = req.user;
+  const { email} = req.user;
   res.json({
     status: "ok",
     code: 200,
     ResponseBody: {
       email: email,
-      subscription: subscription,
     },
   });
 };

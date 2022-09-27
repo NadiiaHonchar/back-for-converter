@@ -4,7 +4,7 @@ const { createError } = require("../../helpers");
 const { User } = require("../../models");
 
 const signup = async (req, res) => {
-  const { email, password, subscription } = req.body;
+  const { email, password } = req.body;
   const user = await User.findOne({ email });
   if (user) {
     throw createError(409, "Email in use");
@@ -24,7 +24,6 @@ const signup = async (req, res) => {
     ResponseBody: {
       user: {
         email: email,
-        subscription: "starter",
       },
     },
   });
